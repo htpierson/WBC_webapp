@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_selection import RFE
 from sklearn.svm import SVC
 from sklearn.metrics import precision_score, recall_score
-from sklearn.metrics import plot_roc_curve, plot_precision_recall_curve, ConfusionMatrixDisplay
+from sklearn.metrics import ConfusionMatrixDisplay, RocCurveDisplay, PrecisionRecallDisplay
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neural_network import MLPClassifier
@@ -59,12 +59,12 @@ def main():
 
         if 'ROC Curve' in metrics_list:
             st.subheader("ROC Curve")
-            plot_roc_curve(model, x_test, y_test)
+            RocCurveDisplay.from_estimator(model, x_test, y_test).plot(color = 'red')
             st.pyplot()
 
         if 'Precision-Recall Curve' in metrics_list:
             st.subheader("Precision-Recall Curve")
-            plot_precision_recall_curve(model, x_test, y_test)
+            PrecisionRecallDisplay.from_estimator(model, x_test, y_test).plot(color = 'red')
             st.pyplot()
             
     df = load_data()
